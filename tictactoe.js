@@ -13,6 +13,7 @@ what does a player need to do:
 - have a name
 */
 
+// Player factory function
 const players = (name) => {
     let score = 0;
     let playerName = () => name;

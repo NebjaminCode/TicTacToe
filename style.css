@@ -11,25 +11,25 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    text-align: center;
 }
 
 .gameboard {
-    width: 50%;
-    height: 50%;
+    width: 50vw;
+    height: 50vw;
+    max-width: 500px;
+    max-height: 500px;
     margin: auto;
-    margin-top: 19%;
+    margin-top: 70px;
     background: grey;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-gap: 2px;
-    vertical-align: top;
 }
 
 .square {
     background: white;
     font-size: 6em;
     text-align: center;
-    padding-top: 5%;
 }

@@ -49,15 +49,14 @@ const gameplay = (() => {
     console.log(square[0].innerHTML)
     
     for (let i = 0; i < square.length; i++) {
-		if (setup.gameboard[i] == "") {
-			square[i].addEventListener('click', () => {
+		square[i].addEventListener('click', () => {
+			if (setup.gameboard[i] == "") {
 				square[i].textContent = "x";
 				setup.gameboard[i] = "x";
 				AI();
 				console.log(setup.gameboard)
-			});
-
-        }
+			}
+        });
     }
 })();
 

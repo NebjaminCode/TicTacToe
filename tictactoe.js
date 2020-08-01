@@ -17,13 +17,19 @@ create a module that:
      - keeps score
 */
 
+const square = document.querySelectorAll(".square")
+
+
+
+
+
 
 // Player factory function
 const players = (name) => {
     let score = 0;
-    let playerName = () => name;
-    let scoreIncrease = () => score++;
-    let newScore = () => score;
+    let playerName = name;
+    let scoreIncrease =  score++;
+    let newScore = score;
 
     return {playerName, scoreIncrease, newScore};
 }
@@ -39,26 +45,29 @@ const setup = (() => {
 })();
 
 const gameplay = (() => {
-    const square = document.querySelectorAll(".square")
     console.log(square.length)
     console.log(square[0].innerHTML)
     
-    const _playerMove = () => {
-            for (let i = 0; i < square.length; i++) {
-                if (setup.gameboard[i] == "") {
-                    square[i].addEventListener('click', () => {
-                    square[i].textContent = "x";
-                    setup.gameboard[i] = "x";
-                    console.log(setup.gameboard)
-            });
-                }
+    for (let i = 0; i < square.length; i++) {
+		if (setup.gameboard[i] == "") {
+			square[i].addEventListener('click', () => {
+				square[i].textContent = "x";
+				setup.gameboard[i] = "x";
+				AI();
+				console.log(setup.gameboard)
+			});
 
         }
     }
-
-    return {
-       output: _playerMove()
-    }
 })();
 
+function AI () {
+	for (let i = 0; i < square.length; i++) {
+		if (setup.gameboard[i] == "") {
+			square[i].textContent = "o";
+			setup.gameboard[i] = "o";
+			return;
+		}
+	}
+}
 console.log(setup.gameboard)

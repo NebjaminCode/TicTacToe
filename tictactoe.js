@@ -32,8 +32,33 @@ const players = (name) => {
 /*
 I think the general idea here is that once a space on the gameboard is clicked (which will be controlled by the gamplay module) the array will be altered. gameboard[0] would change to X or O when the top left square in the game is clicked, for example. Then, we can judge which player wins by creating an array of winning combinations and compare the two. Ex: gameboard['X', 'X', 'X', 'O', 'O', '', '',...] would declare player X the winner, since that's 3 squares in a row. 
 */
+
 const setup = (() => {
     let gameboard = ['','','','','','','','',''];
-
     return {gameboard};
 })();
+
+const gameplay = (() => {
+    const square = document.querySelectorAll(".square")
+    console.log(square.length)
+    console.log(square[0].innerHTML)
+    
+    const _playerMove = () => {
+            for (let i = 0; i < square.length; i++) {
+                if (setup.gameboard[i] == "") {
+                    square[i].addEventListener('click', () => {
+                    square[i].textContent = "x";
+                    setup.gameboard[i] = "x";
+                    console.log(setup.gameboard)
+            });
+                }
+
+        }
+    }
+
+    return {
+       output: _playerMove()
+    }
+})();
+
+console.log(setup.gameboard)

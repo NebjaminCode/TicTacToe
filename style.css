@@ -15,8 +15,8 @@ body {
 }
 
 .gameboard {
-    width: 50vw;
-    height: 50vw;
+    width: 500px;
+    height: 500px;
     max-width: 500px;
     max-height: 500px;
     margin: auto;
@@ -32,4 +32,5 @@ body {
     background: white;
     font-size: 6em;
     text-align: center;
+    padding: 10%;
 }

@@ -18,10 +18,7 @@ create a module that:
 */
 
 const square = document.querySelectorAll(".square")
-
-
-
-
+let moveCount = 0;
 
 
 // Player factory function
@@ -52,21 +49,63 @@ const gameplay = (() => {
 		square[i].addEventListener('click', () => {
 			if (setup.gameboard[i] == "") {
 				square[i].textContent = "x";
-				setup.gameboard[i] = "x";
-				AI();
-				console.log(setup.gameboard)
+                setup.gameboard[i] = "x";
+                winCheck();
+                moveCount++;                
+                console.log(setup.gameboard)
 			}
         });
+       const winCheck = () => {
+           if (
+                setup.gameboard[0] == 'x' && setup.gameboard[1] == 'x' && setup.gameboard[2] == 'x' ||
+                setup.gameboard[3] == 'x' && setup.gameboard[4] == 'x' && setup.gameboard[5] == 'x' ||
+                setup.gameboard[6] == 'x' && setup.gameboard[7] == 'x' && setup.gameboard[8] == 'x' ||
+                setup.gameboard[0] == 'x' && setup.gameboard[3] == 'x' && setup.gameboard[6] == 'x' ||
+                setup.gameboard[1] == 'x' && setup.gameboard[4] == 'x' && setup.gameboard[7] == 'x' ||  
+                setup.gameboard[2] == 'x' && setup.gameboard[5] == 'x' && setup.gameboard[8] == 'x' ||
+                setup.gameboard[0] == 'x' && setup.gameboard[4] == 'x' && setup.gameboard[8] == 'x' || 
+                setup.gameboard[6] == 'x' && setup.gameboard[4] == 'x' && setup.gameboard[2] == 'x'
+               ) {
+                alert("you win!");
+                  players.scoreIncrease;
+                  console.log(players.scoreIncrease)
+                  return;
+                } else {
+                    AI();
+                }
+        }
     }
 })();
 
 function AI () {
-	for (let i = 0; i < square.length; i++) {
-		if (setup.gameboard[i] == "") {
-			square[i].textContent = "o";
-			setup.gameboard[i] = "o";
-			return;
-		}
-	}
+    if (moveCount == 5) {
+        return;
+    } 
+    let CompMove = Math.floor((Math.random() * 7) + 1);
+        if (setup.gameboard[CompMove] == "") {
+                square[CompMove].textContent = "o";
+                setup.gameboard[CompMove] = "o";
+                console.log(CompMove)
+                return;
+        } else {
+            AI();
+        }
 }
+
 console.log(setup.gameboard)
+
+/* 
+var AI = () => {
+
+    let CompMove = Math.floor((Math.random() * 7) + 1);
+
+        if (setup.gameboard[CompMove] == "") {
+                square[CompMove].textContent = "o";
+                setup.gameboard[CompMove] = "o";
+                console.log(CompMove)
+                return;
+        } else {
+            AI()
+        }
+}
+*/

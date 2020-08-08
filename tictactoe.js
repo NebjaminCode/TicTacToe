@@ -50,7 +50,8 @@ const gameplay = (() => {
 				square[i].textContent = "x";
                 setup.gameboard[i] = "x";
                 winCheck();
-                loseCheck();
+                //loseCheck();
+                //setTimeout (function(){AI()}, 150);
                 moveCount++;                
 			}
         });
@@ -67,13 +68,13 @@ const gameplay = (() => {
                ) {
                     user.scoreIncrease;
                     alert("you win!");
-                    autoReset();
+                    setTimeout (function(){autoReset()}, 1000);
                     return;
                 } else {
-                    AI();
+                   setTimeout (function(){AI()}, 150);
                 }
         }
-    
+        /*
         const loseCheck = () => {
             if (
                 setup.gameboard[0] == 'o' && setup.gameboard[1] == 'o' && setup.gameboard[2] == 'o' ||
@@ -87,10 +88,11 @@ const gameplay = (() => {
             ) {
                 ai.scoreIncrease;
                 alert("You Lose!");
-                autoReset();
+                setTimeout (function(){autoReset()}, 1000);
                 return;
             }
         }
+        */
     }
 })();
 
@@ -102,17 +104,33 @@ const scoreDisplay = (() => {
 })();
 
 function AI () {
-    if (moveCount == 5) {
-        return;
-    } 
+    if (moveCount >= 10) {
+        return
+    }
     let CompMove = Math.floor((Math.random() * 7) + 1);
         if (setup.gameboard[CompMove] == "") {
                 square[CompMove].textContent = "o";
                 setup.gameboard[CompMove] = "o";
                 console.log(`CompMove = ${CompMove}`)
+                moveCount++;
                 return;
         } else {
             AI();
+                if (
+                    setup.gameboard[0] == 'o' && setup.gameboard[1] == 'o' && setup.gameboard[2] == 'o' ||
+                    setup.gameboard[3] == 'o' && setup.gameboard[4] == 'o' && setup.gameboard[5] == 'o' ||
+                    setup.gameboard[6] == 'o' && setup.gameboard[7] == 'o' && setup.gameboard[8] == 'o' ||
+                    setup.gameboard[0] == 'o' && setup.gameboard[3] == 'o' && setup.gameboard[6] == 'o' ||
+                    setup.gameboard[1] == 'o' && setup.gameboard[4] == 'o' && setup.gameboard[7] == 'o' ||  
+                    setup.gameboard[2] == 'o' && setup.gameboard[5] == 'o' && setup.gameboard[8] == 'o' ||
+                    setup.gameboard[0] == 'o' && setup.gameboard[4] == 'o' && setup.gameboard[8] == 'o' || 
+                    setup.gameboard[6] == 'o' && setup.gameboard[4] == 'o' && setup.gameboard[2] == 'o'
+                ) {
+                    ai.scoreIncrease;
+                    alert("You Lose!");
+                    autoReset();
+                    return;
+                }      
         }
 }
 
@@ -122,6 +140,7 @@ const reset = (() => {
        for (let i = 0; i < square.length; i++) {
            square[i].textContent = "";
            setup.gameboard[i] = "";
+           moveCount = 0;
        }
     })
 })()
@@ -130,8 +149,17 @@ autoReset = () => {
     for (let i = 0; i < square.length; i++) {
         square[i].textContent = "";
         setup.gameboard[i] = "";
+        moveCount = 0;
     }
 }
+
+// for ties
+
+checkTies = (() => {
+    if (moveCount >= 9) {
+        autoReset();
+    }
+})();
 
 /* 
 var AI = () => {

@@ -34,3 +34,27 @@ body {
     text-align: center;
     padding: 10%;
 }
+
+#winCount {
+    display: grid;
+    grid-template-areas: "player computer";
+    padding: 0px 20% 0px 16%;
+}
+
+#playerScore {
+    grid-area: player;
+}
+
+#compScore {
+    grid-area: computer;
+}
+
+.buttonDiv {
+    margin: 8% 0 0 0;
+}
+
+#reset {
+    width: 20%;
+    height: 45px;
+    border: none;
+}

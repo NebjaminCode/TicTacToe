@@ -20,16 +20,17 @@ create a module that:
 const square = document.querySelectorAll(".square")
 let moveCount = 0;
 
-
 // Player factory function
-const players = (name) => {
+const players = (nameInput) => {
     let score = 0;
-    let playerName = name;
-    let scoreIncrease =  score++;
+    let name = nameInput;
+    const scoreIncrease = () => score++;
     let newScore = score;
+    return { score, name, newScore, scoreIncrease };
+};
 
-    return {playerName, scoreIncrease, newScore};
-}
+let user = players("user");
+let ai = players('AI');
 
 // Gameboard setup
 /*
@@ -42,17 +43,15 @@ const setup = (() => {
 })();
 
 const gameplay = (() => {
-    console.log(square.length)
-    console.log(square[0].innerHTML)
-    
+    players.newScore;
     for (let i = 0; i < square.length; i++) {
 		square[i].addEventListener('click', () => {
 			if (setup.gameboard[i] == "") {
 				square[i].textContent = "x";
                 setup.gameboard[i] = "x";
                 winCheck();
+                loseCheck();
                 moveCount++;                
-                console.log(setup.gameboard)
 			}
         });
        const winCheck = () => {
@@ -66,15 +65,40 @@ const gameplay = (() => {
                 setup.gameboard[0] == 'x' && setup.gameboard[4] == 'x' && setup.gameboard[8] == 'x' || 
                 setup.gameboard[6] == 'x' && setup.gameboard[4] == 'x' && setup.gameboard[2] == 'x'
                ) {
-                alert("you win!");
-                  players.scoreIncrease;
-                  console.log(players.scoreIncrease)
-                  return;
+                    user.scoreIncrease;
+                    alert("you win!");
+                    autoReset();
+                    return;
                 } else {
                     AI();
                 }
         }
+    
+        const loseCheck = () => {
+            if (
+                setup.gameboard[0] == 'o' && setup.gameboard[1] == 'o' && setup.gameboard[2] == 'o' ||
+                setup.gameboard[3] == 'o' && setup.gameboard[4] == 'o' && setup.gameboard[5] == 'o' ||
+                setup.gameboard[6] == 'o' && setup.gameboard[7] == 'o' && setup.gameboard[8] == 'o' ||
+                setup.gameboard[0] == 'o' && setup.gameboard[3] == 'o' && setup.gameboard[6] == 'o' ||
+                setup.gameboard[1] == 'o' && setup.gameboard[4] == 'o' && setup.gameboard[7] == 'o' ||  
+                setup.gameboard[2] == 'o' && setup.gameboard[5] == 'o' && setup.gameboard[8] == 'o' ||
+                setup.gameboard[0] == 'o' && setup.gameboard[4] == 'o' && setup.gameboard[8] == 'o' || 
+                setup.gameboard[6] == 'o' && setup.gameboard[4] == 'o' && setup.gameboard[2] == 'o'
+            ) {
+                ai.scoreIncrease;
+                alert("You Lose!");
+                autoReset();
+                return;
+            }
+        }
     }
+})();
+
+const scoreDisplay = (() => {
+    const playerScore = document.querySelector("#playerHolder");
+    const compScore = document.getElementById("compHolder")
+    playerScore.innerHTML = user.newScore;
+    compScore.innerHTML = ai.newScore;
 })();
 
 function AI () {
@@ -85,14 +109,29 @@ function AI () {
         if (setup.gameboard[CompMove] == "") {
                 square[CompMove].textContent = "o";
                 setup.gameboard[CompMove] = "o";
-                console.log(CompMove)
+                console.log(`CompMove = ${CompMove}`)
                 return;
         } else {
             AI();
         }
 }
 
-console.log(setup.gameboard)
+const reset = (() => {
+    const reset = document.getElementById("reset");
+    reset.addEventListener('click', () => {
+       for (let i = 0; i < square.length; i++) {
+           square[i].textContent = "";
+           setup.gameboard[i] = "";
+       }
+    })
+})()
+
+autoReset = () => {
+    for (let i = 0; i < square.length; i++) {
+        square[i].textContent = "";
+        setup.gameboard[i] = "";
+    }
+}
 
 /* 
 var AI = () => {
